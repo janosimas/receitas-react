@@ -6,7 +6,7 @@ interface IngredientsState {
   ingredients: Ingredient[]
 }
 
-export class Ingredients extends React.Component<any, IngredientsState> {
+export class IngredientsList extends React.Component<any, IngredientsState> {
   constructor(props: any) {
     super(props);
     this.state = {

@@ -9,8 +9,8 @@ import Typography from '@material-ui/core/Typography';
 import * as classNames from 'classnames';
 import * as React from 'react';
 import { Link, Route } from 'react-router-dom';
-import { Ingredients } from './ingredients';
-import { Recipes } from './recipes';
+import { IngredientsList } from './ingredientsList';
+import { RecipesList } from './recipesList';
 
 const items = (
   <div>
@@ -84,8 +84,8 @@ class PermanentDrawer extends React.Component<{ classes: any }, any> {
         </div>
         <main className={classes.content}>
           <div className={classes.toolbar} />
-          <Route exact={true} path="/recipes" component={Recipes} />
-          <Route exact={true} path="/ingredients" component={Ingredients} />
+          <Route exact={true} path="/recipes" component={RecipesList} />
+          <Route exact={true} path="/ingredients" component={IngredientsList} />
         </main>
       </div>
     );

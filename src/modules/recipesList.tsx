@@ -1,3 +1,4 @@
+import { List, ListItem, ListItemText } from '@material-ui/core';
 import * as React from 'react';
 import { IRecipeInterface, Recipe } from '../models/recipe';
 
@@ -5,7 +6,7 @@ interface IRecipesState {
   recipes: Recipe[]
 }
 
-export class Recipes extends React.Component<any, IRecipesState> {
+export class RecipesList extends React.Component<any, IRecipesState> {
   constructor(props: any) {
     super(props);
     this.state = {
@@ -29,9 +30,13 @@ export class Recipes extends React.Component<any, IRecipesState> {
     return (
       <div>
         <h2>Recipes</h2>
-        <ul>
-          {this.state.recipes.map((recipe: Recipe) => (<li key={recipe.id}>{recipe.name}</li>))}
-        </ul>
+        <List>
+          {this.state.recipes.map((recipe: Recipe) => (
+            <ListItem key={recipe.id}>
+              <ListItemText primary={recipe.name} />
+            </ListItem>)
+          )}
+        </List>
       </div>
     )
   }

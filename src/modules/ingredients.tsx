@@ -1,3 +1,4 @@
+import { List, ListItem, ListItemText } from '@material-ui/core';
 import * as React from 'react';
 import { Ingredient, IngredientInterface } from '../models/ingredient';
 
@@ -29,9 +30,13 @@ export class Ingredients extends React.Component<any, IngredientsState> {
     return (
       <div>
         <h2>Ingredients</h2>
-        <ul>
-          {this.state.ingredients.map((ingredient: Ingredient) => (<li key={ingredient.id}>{ingredient.name}</li>))}
-        </ul>
+        <List>
+          {this.state.ingredients.map((ingredient: Ingredient) => (
+            <ListItem key={ingredient.id}>
+              <ListItemText primary={ingredient.name} />
+            </ListItem>)
+          )}
+        </List>
       </div>
     )
   }

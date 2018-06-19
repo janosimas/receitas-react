@@ -15,10 +15,10 @@ import { RecipesList } from './recipesList';
 const items = (
   <div>
     <ListItem button={true}>
-      <ListItemText primary={<Link to="/recipes">Recipes</Link>} />
+      <ListItemText primary={<Link to="/recipe/list">Recipes</Link>} />
     </ListItem>
     <ListItem button={true}>
-      <ListItemText primary={<Link to="/ingredients">Ingredients</Link>} />
+      <ListItemText primary={<Link to="/ingredient/list">Ingredients</Link>} />
     </ListItem>
   </div>
 )
@@ -83,8 +83,8 @@ class PermanentDrawer extends React.Component<{ classes: any }, any> {
         </div>
         <main className={classes.content}>
           <div className={classes.toolbar} />
-          <Route exact={true} path="/recipes" component={RecipesList} />
-          <Route exact={true} path="/ingredients" component={IngredientsList} />
+          <Route exact={true} path="/recipe/list" component={RecipesList} />
+          <Route exact={true} path="/ingredient/list" component={IngredientsList} />
         </main>
       </div>
     );

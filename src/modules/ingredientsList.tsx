@@ -4,6 +4,8 @@ import * as R from 'ramda';
 import * as React from 'react';
 import { Ingredient, IngredientInterface } from '../models/ingredient';
 
+// TODO: add a remove button for ingredients - remove_circle_outline
+
 interface IngredientsState {
   ingredients: Ingredient[],
   newIngredient: string
@@ -19,12 +21,13 @@ export class IngredientsList extends React.Component<{ classes: any }, Ingredien
 
     this.addIngredient = this.addIngredient.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.reloadIngredients = this.reloadIngredients.bind(this);
   }
 
   public componentDidMount() {
     this.reloadIngredients();
   }
-  // add_circle_outline
+  
   public render() {
     return (
       <div>

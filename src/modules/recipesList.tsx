@@ -2,7 +2,7 @@ import { IconButton, List, ListItem, ListItemText } from '@material-ui/core';
 import AddCircleOutline from '@material-ui/icons/AddCircleOutline'
 import * as React from 'react';
 import { Link } from 'react-router-dom';
-import { IRecipeInterface, RecipeModel } from '../models/recipeModel';
+import { InterfaceRecipeModel, RecipeModel } from '../models/recipeModel';
 
 interface IRecipesState {
   recipes: RecipeModel[]
@@ -55,7 +55,7 @@ export class RecipesList extends React.Component<any, IRecipesState> {
     fetch('http://localhost:8080/recipe/list')
       .then((res) => res.json())
       .then((result) => {
-        const recipes: RecipeModel[] = result.map((json: IRecipeInterface) => new RecipeModel(json));
+        const recipes: RecipeModel[] = result.map((json: InterfaceRecipeModel) => new RecipeModel(json));
         this.setState({ recipes });
       })
       .catch((err) => {

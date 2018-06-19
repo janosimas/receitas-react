@@ -4,7 +4,7 @@ export interface IRecipeInterface {
   ingredients: number[]
 }
 
-export class Recipe {
+export class RecipeModel {
   public readonly name: string;
   public readonly id: number;
   public readonly ingredients: number[];

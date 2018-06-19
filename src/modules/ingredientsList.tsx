@@ -2,12 +2,12 @@ import { IconButton, Input, List, ListItem, ListItemText } from '@material-ui/co
 import AddCircleOutline from '@material-ui/icons/AddCircleOutline'
 import * as R from 'ramda';
 import * as React from 'react';
-import { Ingredient, IngredientInterface } from '../models/ingredient';
+import { IngredientInterface, IngredientModel } from '../models/ingredientModel';
 
 // TODO: add a remove button for ingredients - remove_circle_outline
 
 interface IngredientsState {
-  ingredients: Ingredient[],
+  ingredients: IngredientModel[],
   newIngredient: string
 }
 
@@ -45,7 +45,7 @@ export class IngredientsList extends React.Component<{ classes: any }, Ingredien
           </form>
         </div>
         <List>
-          {this.state.ingredients.map((ingredient: Ingredient) => (
+          {this.state.ingredients.map((ingredient: IngredientModel) => (
             <ListItem key={ingredient.id}>
               <ListItemText primary={ingredient.name} />
             </ListItem>)
@@ -60,7 +60,7 @@ export class IngredientsList extends React.Component<{ classes: any }, Ingredien
     fetch('http://localhost:8080/ingredient/list')
       .then((res) => res.json())
       .then((result) => {
-        const ingredients: Ingredient[] = result.map((json: IngredientInterface) => new Ingredient(json));
+        const ingredients: IngredientModel[] = result.map((json: IngredientInterface) => new IngredientModel(json));
         this.setState({ ingredients });
       })
       .catch((err) => {

@@ -1,6 +1,6 @@
 export interface IngredientInterface { name: string, id: number }
 
-export class Ingredient {
+export class IngredientModel {
   public readonly name: string;
   public readonly id: number;
   constructor(json: IngredientInterface) {

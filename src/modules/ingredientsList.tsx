@@ -1,20 +1,59 @@
-import { List, ListItem, ListItemText } from '@material-ui/core';
+import { IconButton, Input, List, ListItem, ListItemText } from '@material-ui/core';
+import AddCircleOutline from '@material-ui/icons/AddCircleOutline'
+import * as R from 'ramda';
 import * as React from 'react';
 import { Ingredient, IngredientInterface } from '../models/ingredient';
 
 interface IngredientsState {
-  ingredients: Ingredient[]
+  ingredients: Ingredient[],
+  newIngredient: string
 }
 
-export class IngredientsList extends React.Component<any, IngredientsState> {
-  constructor(props: any) {
+export class IngredientsList extends React.Component<{ classes: any }, IngredientsState> {
+  constructor(props: { classes: any }) {
     super(props);
     this.state = {
-      ingredients: []
+      ingredients: [],
+      newIngredient: ''
     };
+
+    this.addIngredient = this.addIngredient.bind(this);
+    this.handleChange = this.handleChange.bind(this);
   }
 
   public componentDidMount() {
+    this.reloadIngredients();
+  }
+  // add_circle_outline
+  public render() {
+    return (
+      <div>
+        <div>
+          <h2>Ingredients</h2>
+          <form onSubmit={this.addIngredient} style={{
+            position: 'fixed',
+            right: 15,
+            top: 80
+          }}>
+            <Input value={this.state.newIngredient} onChange={this.handleChange} />
+            <IconButton type="submit" value="Submit">
+              <AddCircleOutline />
+            </IconButton>
+          </form>
+        </div>
+        <List>
+          {this.state.ingredients.map((ingredient: Ingredient) => (
+            <ListItem key={ingredient.id}>
+              <ListItemText primary={ingredient.name} />
+            </ListItem>)
+          )}
+        </List>
+
+      </div>
+    );
+  }
+
+  private reloadIngredients() {
     fetch('http://localhost:8080/ingredient/list')
       .then((res) => res.json())
       .then((result) => {
@@ -26,18 +65,29 @@ export class IngredientsList extends React.Component<any, IngredientsState> {
       });
   }
 
-  public render() {
-    return (
-      <div>
-        <h2>Ingredients</h2>
-        <List>
-          {this.state.ingredients.map((ingredient: Ingredient) => (
-            <ListItem key={ingredient.id}>
-              <ListItemText primary={ingredient.name} />
-            </ListItem>)
-          )}
-        </List>
-      </div>
-    )
+  private handleChange(event: any) {
+    this.setState({ newIngredient: event.target.value });
+  }
+
+  private addIngredient() {
+    const newIngredient: string | undefined = this.state.newIngredient;
+    console.log(newIngredient);
+    if (R.isNil(newIngredient)) {
+      return;
+    }
+
+    fetch('http://localhost:8080/ingredient', {
+      body: JSON.stringify({
+        name: newIngredient
+      }),
+      headers: { 'Content-Type': 'application/json' },
+      method: 'post',
+    }).then((res) => {
+      this.reloadIngredients();
+      this.setState({ newIngredient: '' });
+      return res.json();
+    }).then((body) => {
+      console.log(body);
+    });
   }
 }

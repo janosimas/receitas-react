@@ -1,17 +1,13 @@
 import { TextField } from '@material-ui/core';
 import * as React from 'react';
-import { IngredientModel } from '../models/ingredientModel';
-import { RecipeModel } from '../models/recipeModel';
+import { InterfaceIngredientModel } from '../models/ingredientModel';
+import { InterfaceRecipeModel } from '../models/recipeModel';
 
-export class Recipe extends React.Component<any, any> {
-  constructor(props: { classes: any }) {
+export class Recipe extends React.Component<{ recipe: InterfaceRecipeModel | undefined }, { recipe: InterfaceRecipeModel }> {
+  constructor(props: { recipe: InterfaceRecipeModel }) {
     super(props);
     this.state = {
-      recipe: new RecipeModel({
-        id: 0,
-        ingredients: [],
-        name: 'Nova Receita',
-      })
+      recipe: props.recipe
     };
   }
 
@@ -19,9 +15,12 @@ export class Recipe extends React.Component<any, any> {
     return (
       <div>
         <h1>{this.state.recipe.name}</h1>
-        <div>ID: {this.state.recipe.id}</div>
-        {this.state.recipe.ingredients.map((ingredient:IngredientModel) => (<TextField value={ingredient.name} />) )}
+        {this.state.recipe.ingredients.map((ingredient: InterfaceIngredientModel, index: number) =>
+          (<div>
+            <TextField key={100 + index} id={'0'} value={ingredient.name} />
+          </div>)
+        )};
       </div>
-    )
-  }
+    );
+  };
 }

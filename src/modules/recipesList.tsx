@@ -2,10 +2,10 @@ import { IconButton, List, ListItem, ListItemText } from '@material-ui/core';
 import AddCircleOutline from '@material-ui/icons/AddCircleOutline'
 import * as React from 'react';
 import { Link } from 'react-router-dom';
-import { InterfaceRecipeModel, RecipeModel } from '../models/recipeModel';
+import { InterfaceRecipeModel } from '../models/recipeModel';
 
 interface IRecipesState {
-  recipes: RecipeModel[]
+  recipes: InterfaceRecipeModel[]
 }
 
 // TODO: add a remove button for recipes - remove_circle_outline
@@ -29,7 +29,7 @@ export class RecipesList extends React.Component<any, IRecipesState> {
       <div>
         <div>
           <h2>Recipes</h2>
-          <Link to="/recipe">
+          <Link to="/recipe/new">
             <IconButton style={{
               position: 'fixed',
               right: 15,
@@ -40,9 +40,10 @@ export class RecipesList extends React.Component<any, IRecipesState> {
           </Link>
         </div>
         <List>
-          {this.state.recipes.map((recipe: RecipeModel) => (
+          {this.state.recipes.map((recipe: InterfaceRecipeModel) => (
             <ListItem key={recipe.id}>
               <ListItemText primary={recipe.name} />
+              {/* <ListItemText primary={(<Link to="/recipe/{recipe.id}">{recipe.name}</Link>)} /> */}
             </ListItem>)
           )}
         </List>
@@ -55,8 +56,7 @@ export class RecipesList extends React.Component<any, IRecipesState> {
     fetch('http://localhost:8080/recipe/list')
       .then((res) => res.json())
       .then((result) => {
-        const recipes: RecipeModel[] = result.map((json: InterfaceRecipeModel) => new RecipeModel(json));
-        this.setState({ recipes });
+        this.setState({ recipes: result });
       })
       .catch((err) => {
         console.log(err);

@@ -1,4 +1,5 @@
 import { Input } from '@material-ui/core';
+import * as R from 'ramda';
 import * as React from 'react';
 import { InterfaceIngredientModel } from '../models/ingredientModel';
 import { InterfaceRecipeModel } from '../models/recipeModel';
@@ -17,21 +18,25 @@ export class NewRecipe extends React.Component<{ recipe: InterfaceRecipeModel | 
   public render() {
     return (
       <div>
-        <h1>{this.state.recipe.name}</h1>
+        <Input value={this.state.recipe.name} onChange={this.handleChange.bind(this, undefined)} />
         {this.state.recipe.ingredients.map((ingredient: InterfaceIngredientModel, index: number) =>
           (<div>
-            <Input key={index} id={'0'} value={ingredient.name} onChange={this.handleChange.bind(this, index)} />
+            <Input key={index} id={String(index)} value={ingredient.name} onChange={this.handleChange.bind(this, index)} />
           </div>)
         )}
       </div>
     );
   };
 
-  private handleChange(index: number, event: any) {
+  private handleChange(index: number | undefined, event: any) {
     const recipe = this.state.recipe;
-    recipe.ingredients[index] = {
-      name: event.target.value
-    };
+    if(R.isNil(index)) {
+      recipe.name = event.target.value;
+    } else {
+      recipe.ingredients[index] = {
+        name: event.target.value
+      };
+    }
 
     this.setState({ recipe });
   }

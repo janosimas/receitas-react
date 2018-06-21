@@ -10,7 +10,7 @@ import * as classNames from 'classnames';
 import * as React from 'react';
 import { Link, Route } from 'react-router-dom';
 import { NewRecipe } from './newRecipe';
-// import { Recipe } from './recipe';
+import { Recipe } from './recipe';
 import { RecipesList } from './recipesList';
 
 const items = (
@@ -84,9 +84,10 @@ class PermanentDrawer extends React.Component<{ classes: any }, any> {
         </div>
         <main className={classes.content}>
           <div className={classes.toolbar} />
+          <Route exact={true} path="/recipe" />
           <Route exact={true} path="/recipe/list" component={RecipesList} />
-          {/* <Route exact={true} path="/recipe/:id" component={Recipe} /> */}
           <Route exact={true} path="/recipe/new" component={NewRecipe} />
+          <Route exact={true} path="/recipe/:id(\d+)" component={Recipe} />
           {/* <Route exact={true} path="/ingredient/list" component={IngredientsList} /> */}
         </main>
       </div>

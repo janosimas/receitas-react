@@ -42,8 +42,7 @@ export class RecipesList extends React.Component<any, IRecipesState> {
         <List>
           {this.state.recipes.map((recipe: InterfaceRecipeModel) => (
             <ListItem key={recipe.id}>
-              <ListItemText primary={recipe.name} />
-              {/* <ListItemText primary={(<Link to="/recipe/{recipe.id}">{recipe.name}</Link>)} /> */}
+              <ListItemText primary={(<Link to={'/recipe/'+recipe.id}>{recipe.name}</Link>)} />
             </ListItem>)
           )}
         </List>

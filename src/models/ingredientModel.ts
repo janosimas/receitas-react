@@ -1,1 +1,6 @@
-export interface InterfaceIngredientModel { name: string, id?: number }
+export interface InterfaceIngredientModel {
+  id?: number,
+  name: string,
+  quantity?: number,
+  unit?: string
+}

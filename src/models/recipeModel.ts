@@ -2,8 +2,10 @@ import * as R from 'ramda';
 import { InterfaceIngredientModel } from "./ingredientModel";
 
 export interface InterfaceRecipeModel {
-  name: string,
   id?: number,
+  name: string,
+  cookingMethod?: string;
+  description?: string;
   ingredients: InterfaceIngredientModel[]
 }
 

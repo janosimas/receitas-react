@@ -1,4 +1,4 @@
-import { IconButton, List, ListItem, ListItemText } from '@material-ui/core';
+import { IconButton, List, ListItem, ListItemText, TextField } from '@material-ui/core';
 import AddCircleOutline from '@material-ui/icons/AddCircleOutline'
 import * as React from 'react';
 import { Link } from 'react-router-dom';
@@ -18,6 +18,7 @@ export class RecipesList extends React.Component<any, IRecipesState> {
     };
 
     this.reloadRecipes = this.reloadRecipes.bind(this);
+    this.filterNames = this.filterNames.bind(this);
   }
 
   public componentDidMount() {
@@ -29,6 +30,10 @@ export class RecipesList extends React.Component<any, IRecipesState> {
       <div>
         <div>
           <h2>Recipes</h2>
+          <TextField
+            onChange={this.filterNames}
+          />
+
           <Link to="/recipe/new">
             <IconButton style={{
               position: 'fixed',
@@ -42,13 +47,26 @@ export class RecipesList extends React.Component<any, IRecipesState> {
         <List>
           {this.state.recipes.map((recipe: InterfaceRecipeModel) => (
             <ListItem key={recipe.id}>
-              <ListItemText primary={(<Link to={'/recipe/'+recipe.id}>{recipe.name}</Link>)} />
+              <ListItemText primary={(<Link to={'/recipe/' + recipe.id}>{recipe.name}</Link>)} />
             </ListItem>)
           )}
         </List>
 
       </div>
     );
+  }
+
+  private filterNames(event: React.ChangeEvent<HTMLInputElement>) {
+    // TODO: bug in names with spaces
+    const fragment = event.currentTarget.value;
+    fetch(`http://localhost:8080/recipe/list?contains=${fragment}`)
+      .then((res) => res.json())
+      .then((result) => {
+        this.setState({ recipes: result });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }
 
   private reloadRecipes() {

@@ -28,16 +28,11 @@ export const getRecipeById = async (id: number): Promise<InterfaceRecipeModel | 
 }
 
 export const saveRecipe = async (recipe: InterfaceRecipeModel) => {
-  fetch('http://localhost:8080/recipe', {
+  return fetch('http://localhost:8080/recipe', {
     body: JSON.stringify({
       ...recipe
     }),
     headers: { 'Content-Type': 'application/json' },
     method: 'post',
-  })
-    .then(res => res.json()
-      .then(json => console.log(json)
-      ))
-    .catch(error => console.log(error));
-  ;
+  });
 }

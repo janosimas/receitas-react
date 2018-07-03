@@ -3,14 +3,14 @@ import AppBar from '@material-ui/core/AppBar';
 import Divider from '@material-ui/core/Divider';
 import Drawer from '@material-ui/core/Drawer';
 import List from '@material-ui/core/List';
-import { withStyles } from '@material-ui/core/styles';
+import { Theme, withStyles } from '@material-ui/core/styles';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import * as classNames from 'classnames';
 import * as React from 'react';
 import { Link, Route } from 'react-router-dom';
+import { MyComponent } from './myComponent';
 import { NewRecipe } from './newRecipe';
-// import { Recipe } from './recipe';
 import { RecipesList } from './recipesList';
 
 const items = (
@@ -18,14 +18,14 @@ const items = (
     <ListItem button={true}>
       <ListItemText primary={<Link to="/recipe/list">Recipes</Link>} />
     </ListItem>
-    {/* <ListItem button={true}>
-      <ListItemText primary={<Link to="/ingredient/list">Ingredients</Link>} />
-    </ListItem> */}
+    <ListItem button={true}>
+      <ListItemText primary={<Link to="/mycomponent">My Component</Link>} />
+    </ListItem>
   </div>
 )
 const drawerWidth = 240;
 
-const styles: any = (theme: any) => ({
+const styles: any = (theme: Theme) => ({
   appBar: {
     zIndex: theme.zIndex.drawer + 1,
   },
@@ -88,7 +88,7 @@ class PermanentDrawer extends React.Component<{ classes: any }, any> {
           <Route exact={true} path="/recipe/list" component={RecipesList} />
           <Route exact={true} path="/recipe/new" component={NewRecipe} />
           <Route exact={true} path="/recipe/:id(\d+)" component={NewRecipe} />
-          {/* <Route exact={true} path="/ingredient/list" component={IngredientsList} /> */}
+          <Route exact={true} path="/mycomponent" component={MyComponent} />
         </main>
       </div>
     );

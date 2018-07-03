@@ -56,6 +56,7 @@ const styles = (theme: Theme) => createStyles({
 });
 
 export const NewRecipe = withStyles(styles)(
+  // TODO: change this class name
   class NewRecipe2 extends React.Component<InterfaceProps, InterfaceState> {
     constructor(props: InterfaceProps) {
       super(props);

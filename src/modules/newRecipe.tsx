@@ -1,4 +1,4 @@
-import { createStyles, IconButton, Snackbar, TextField, Theme, withStyles } from '@material-ui/core';
+import { createStyles, IconButton, Paper, Snackbar, TextField, Theme, withStyles } from '@material-ui/core';
 import AddCircleOutline from '@material-ui/icons/AddCircleOutline'
 import CloseIcon from '@material-ui/icons/Close';
 import RemoveCircleOutline from '@material-ui/icons/RemoveCircleOutline'
@@ -92,94 +92,96 @@ class NewRecipe extends React.Component<InterfaceProps, InterfaceState> {
     const { classes } = this.props;
 
     return (
-      <div style={{ width: 1000 }}>
-        <IconButton onClick={this.saveRecipe}>
-          <Save />
-        </IconButton>
+      <Paper>
+        <div style={{ width: 1000, margin:'3%' }}>
+          <IconButton onClick={this.saveRecipe}>
+            <Save />
+          </IconButton>
 
-        <TextField
-          label={"Title"}
-          className={classes.titleField}
-          fullWidth={true}
-          value={this.state.recipe.name || ''}
-          onChange={this.updateName} />
+          <TextField
+            label={"Title"}
+            className={classes.titleField}
+            fullWidth={true}
+            value={this.state.recipe.name || ''}
+            onChange={this.updateName} />
 
-        <TextField
-          label={"Cooking Method"}
-          style={{ display: 'block' }}
-          value={this.state.recipe.cookingMethod || ''}
-          placeholder={"Cooking Method"}
-          onChange={this.updateCookingMethod} />
+          <TextField
+            label={"Cooking Method"}
+            style={{ display: 'block' }}
+            value={this.state.recipe.cookingMethod || ''}
+            placeholder={"Cooking Method"}
+            onChange={this.updateCookingMethod} />
 
-        <TextField
-          label={"Description"}
-          fullWidth={true}
-          className={classes.descriptionField}
-          value={this.state.recipe.description || ''}
-          placeholder={"Description"}
-          multiline={true}
-          onChange={this.updateDescription} />
+          <TextField
+            label={"Description"}
+            fullWidth={true}
+            className={classes.descriptionField}
+            value={this.state.recipe.description || ''}
+            placeholder={"Description"}
+            multiline={true}
+            onChange={this.updateDescription} />
 
-        <h2>Ingredients: </h2>
-        <div className={classes.container}>
-          {this.state.recipe.ingredients.map((ingredient: InterfaceIngredientModel, index: number) =>
-            (<div key={index}>
-              <TextField
-                label={"Ingredient"}
-                className={classes.ingredient}
-                id={String(index)}
-                value={ingredient.name || ''}
-                placeholder={"Ingredient"}
-                onChange={this.updateIngredient.bind(this, 'name', index)} />
-              <TextField
-                label={"Quantity"}
-                className={classes.quantity}
-                id={String(index)}
-                value={ingredient.quantity || 0}
-                placeholder={"Quantity"}
-                onChange={this.updateIngredient.bind(this, 'quantity', index)} />
-              <TextField
-                label={"Unit"}
-                className={classes.unit}
-                id={String(index)}
-                value={ingredient.unit || ''}
-                placeholder={"Unit"}
-                onChange={this.updateIngredient.bind(this, 'unit', index)} />
-              <IconButton onClick={this.removeIngredient.bind(this, index)}>
-                <RemoveCircleOutline />
+          <h2>Ingredients: </h2>
+          <div className={classes.container}>
+            {this.state.recipe.ingredients.map((ingredient: InterfaceIngredientModel, index: number) =>
+              (<div key={index}>
+                <TextField
+                  label={"Ingredient"}
+                  className={classes.ingredient}
+                  id={String(index)}
+                  value={ingredient.name || ''}
+                  placeholder={"Ingredient"}
+                  onChange={this.updateIngredient.bind(this, 'name', index)} />
+                <TextField
+                  label={"Quantity"}
+                  className={classes.quantity}
+                  id={String(index)}
+                  value={ingredient.quantity || 0}
+                  placeholder={"Quantity"}
+                  onChange={this.updateIngredient.bind(this, 'quantity', index)} />
+                <TextField
+                  label={"Unit"}
+                  className={classes.unit}
+                  id={String(index)}
+                  value={ingredient.unit || ''}
+                  placeholder={"Unit"}
+                  onChange={this.updateIngredient.bind(this, 'unit', index)} />
+                <IconButton onClick={this.removeIngredient.bind(this, index)}>
+                  <RemoveCircleOutline />
+                </IconButton>
+              </div>
+              )
+            )}
+          </div>
+          <IconButton onClick={this.addIngredient}>
+            <AddCircleOutline />
+          </IconButton>
+
+          <Snackbar
+            anchorOrigin={{
+              horizontal: 'left',
+              vertical: 'bottom',
+            }}
+            open={Boolean(this.state.error)}
+            autoHideDuration={6000}
+            onClose={this.handleClose}
+            ContentProps={{
+              'aria-describedby': 'message-id',
+            }}
+            message={<span id="message-id">{this.state.error}</span>}
+            action={
+              <IconButton
+                key="close"
+                aria-label="Close"
+                color="inherit"
+                className={classes.close}
+                onClick={this.handleClose}
+              >
+                <CloseIcon />
               </IconButton>
-            </div>
-            )
-          )}
+            } />
         </div>
-        <IconButton onClick={this.addIngredient}>
-          <AddCircleOutline />
-        </IconButton>
-
-        <Snackbar
-          anchorOrigin={{
-            horizontal: 'left',
-            vertical: 'bottom',
-          }}
-          open={Boolean(this.state.error)}
-          autoHideDuration={6000}
-          onClose={this.handleClose}
-          ContentProps={{
-            'aria-describedby': 'message-id',
-          }}
-          message={<span id="message-id">{this.state.error}</span>}
-          action={
-            <IconButton
-              key="close"
-              aria-label="Close"
-              color="inherit"
-              className={classes.close}
-              onClick={this.handleClose}
-            >
-              <CloseIcon />
-            </IconButton>
-          } />
-      </div>
+      </Paper>
     );
   };
 

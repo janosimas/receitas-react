@@ -5,14 +5,18 @@ import {
   BrowserRouter as Router,
 } from 'react-router-dom'
 
+import { CssBaseline } from '@material-ui/core';
 import PermanetDrawer from './modules/permanetDrawer';
 
 class App extends React.Component {
   public render() {
     return (
-      <Router>
+      <React.Fragment>
+        <CssBaseline />
+        <Router>
           <PermanetDrawer />
-      </Router>
+        </Router>
+      </React.Fragment>
     );
   }
 }

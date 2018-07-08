@@ -11,6 +11,12 @@ export class MyComponent extends React.Component<any, any> {
           logradouro: 'Rua dos bobos',
           numero: 0
         },
+        exemplo: {
+          membro1: "texto",
+          membro2: {
+            numero: 23
+          }
+        },
         idade: 5,
         name: 'nome',
       }
@@ -22,15 +28,6 @@ export class MyComponent extends React.Component<any, any> {
   public render() {
     const { obj } = this.state;
 
-    console.log(obj);
-    for (const key in obj) {
-      if (obj.hasOwnProperty(key)) {
-        const element = obj[key];
-        console.log(element);
-
-      }
-    }
-
     const view = [];
     if (R.isNil(obj)) {
       console.log('no item');
@@ -41,10 +38,10 @@ export class MyComponent extends React.Component<any, any> {
       if (obj.hasOwnProperty(key)) {
         const element = obj[key];
         const typeRender: string = typeof element + 'Render';
-        if (!R.isNil(this[typeRender])) {  
-          view.push(<div key={key}>{key+': '} {this[typeRender](element)}</div>);
+        if (!R.isNil(this[typeRender])) {
+          view.push(<div key={key}>{key + ': '} {this[typeRender](element)}</div>);
         } else {
-          view.push(<div key={key}>{key+': '} {`unknown property of type ${typeof element}`}</div>);
+          view.push(<div key={key}>{key + ': '} {`unknown property of type ${typeof element}`}</div>);
         }
       }
     }
@@ -58,11 +55,11 @@ export class MyComponent extends React.Component<any, any> {
     this.setState({ json });
   }
 
-  protected stringRender(text: string) {
-    return text;
-  }
+  protected stringRender(text: string): JSX.Element {
+  return <span>{text}</span>;
+}
 
-  protected numberRender(num: number) {
-    return num;
-  }
+  protected numberRender(num: number): JSX.Element {
+  return <span>{num}</span>;
+}
 }

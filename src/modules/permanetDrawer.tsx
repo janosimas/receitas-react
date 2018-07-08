@@ -10,6 +10,7 @@ import * as classNames from 'classnames';
 import * as React from 'react';
 import { Link, Route } from 'react-router-dom';
 import { MyComponent } from './myComponent';
+import { MyComponent2 } from './myComponent2';
 import { NewRecipe } from './newRecipe';
 import { RecipesList } from './recipesList';
 
@@ -20,6 +21,9 @@ const items = (
     </ListItem>
     <ListItem button={true}>
       <ListItemText primary={<Link to="/mycomponent">My Component</Link>} />
+    </ListItem>
+    <ListItem button={true}>
+      <ListItemText primary={<Link to="/mycomponent2">My Component 2</Link>} />
     </ListItem>
   </div>
 )
@@ -89,6 +93,7 @@ class PermanentDrawer extends React.Component<{ classes: any }, any> {
           <Route exact={true} path="/recipe/new" component={NewRecipe} />
           <Route exact={true} path="/recipe/:id(\d+)" component={NewRecipe} />
           <Route exact={true} path="/mycomponent" component={MyComponent} />
+          <Route exact={true} path="/mycomponent2" component={MyComponent2} />
         </main>
       </div>
     );

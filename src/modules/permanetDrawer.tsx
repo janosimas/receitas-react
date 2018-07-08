@@ -11,8 +11,8 @@ import * as React from 'react';
 import { Link, Route } from 'react-router-dom';
 import { MyComponent } from './myComponent';
 import { MyComponent2 } from './myComponent2';
-import { NewRecipe } from './newRecipe';
-import { RecipesList } from './recipesList';
+import NewRecipe from './newRecipe';
+import RecipesList from './recipesList';
 
 const items = (
   <div>
@@ -80,7 +80,7 @@ class PermanentDrawer extends React.Component<{ classes: any }, any> {
           >
             <Toolbar>
               <Typography variant="title" color="inherit" noWrap={true}>
-                Permanent drawer
+                Recipe Manager
               </Typography>
             </Toolbar>
           </AppBar>

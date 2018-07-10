@@ -1,5 +1,6 @@
 import { createStyles, IconButton, List, ListItem, ListItemText, Paper, TextField, Theme, withStyles } from '@material-ui/core';
 import AddCircleOutline from '@material-ui/icons/AddCircleOutline'
+import * as R from 'ramda';
 import * as React from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import { InterfaceRecipeModel } from '../models/recipeModel';
@@ -60,23 +61,27 @@ class RecipesList extends React.Component<any, IRecipesState> {
             </IconButton>
           </Link>
         </div>
-        <Paper>
-          <List
-            className={classes.list}
-          >
-            {this.state.recipes.map((recipe: InterfaceRecipeModel) => (
-              <ListItem
-                key={recipe.id}
-                dense={true}
-                button={true}
-                onClick={this.redirectToRecipe.bind(this, '/recipe/' + recipe.id)}
+        {
+          R.isEmpty(this.state.recipes) ?
+            undefined :
+            <Paper>
+              <List
+                className={classes.list}
               >
-                <ListItemText primary={(<Link style={{ "fontSize": 16 }} to={'/recipe/' + recipe.id}>{recipe.name}</Link>)} />
-              </ListItem>
-            )
-            )}
-          </List>
-        </Paper>
+                {this.state.recipes.map((recipe: InterfaceRecipeModel) => (
+                  <ListItem
+                    key={recipe.id}
+                    dense={true}
+                    button={true}
+                    onClick={this.redirectToRecipe.bind(this, '/recipe/' + recipe.id)}
+                  >
+                    <ListItemText primary={(<Link style={{ "fontSize": 16 }} to={'/recipe/' + recipe.id}>{recipe.name}</Link>)} />
+                  </ListItem>
+                )
+                )}
+              </List>
+            </Paper>
+        }
       </div>
     );
   }
